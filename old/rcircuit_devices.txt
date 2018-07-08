@@ -1,0 +1,15 @@
+Reg:
+	Inputs:in,clk,en,rst
+	Outputs:out
+Counter:
+	Inputs:in,clk,load,rst
+	Outputs:out
+Mux:
+	Inputs:in0,in1...
+	Outputs:out
+Decoder:
+	Inputs:sel
+	Outputs:o0,o1...
+Ram:
+	Inputs:in,clk,wr
+	Outputs:out
