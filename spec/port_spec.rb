@@ -2,15 +2,16 @@ require_relative "../port.rb"
 
 describe Port do
   it "should set the port's value when we call setval" do
-    a=Port.new
+    a=Port.new(4)
     a.setval(1)
     expect(a).to eq 1
   end
+
   it "should propagate values when we call setval" do
-    a=Port.new
-    b=Port.new
-    c=Port.new
-    d=Port.new
+    a=Port.new(4)
+    b=Port.new(4)
+    c=Port.new(4)
+    d=Port.new(4)
 
     #connect A-B and C-D
     a.connect(b)
@@ -35,5 +36,10 @@ describe Port do
     expect(b).to eq 4
     expect(c).to eq 4
     expect(d).to eq 4
+  end
+
+  it "should not allow value to go over max allowed by width" do
+    a=Port.new(4)
+    expect {a.setval(16)}.to raise_error ArgumentError
   end
 end

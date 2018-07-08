@@ -7,12 +7,22 @@ class Port
     # @return [Integer] the current value of the port
   attr_reader :val
 
+  # @!attribute [r] width
+    # @return [Integer] the width of the port
+  attr_reader :width
+
   # Returns a new instance of Port
-  # @param name [String] The string name of the port
-  def initialize(name="")
+  # @overload set(width)
+  #   @param width [Integer] The width of the port
+  # @overload set(width, name)
+  #   @param width [Integer] The width of the port
+  #   @param name [String] The name of the port
+  def initialize(width, name="")
     @connected=[]
     @propagating=false
     @val=0
+    @width=width
+    @maxval = (2**@width)-1
     @strname=name
   end
 
@@ -22,7 +32,11 @@ class Port
   def setval(val)
     # Prevent infinite loops when the connected port calls back when propagating.
     if !@propagating
-      @val=val
+      if val<=@maxval
+        @val=val
+      else
+        raise ArgumentError,"#{val} is over maximum of #{@maxval}"
+      end
       @propagating=true
       propagate()
       @propagating=false
@@ -74,10 +88,3 @@ class Port
   end
 
 end
-
-a=Port.new("a")
-b=Port.new("b")
-c=Port.new("c")
-a.connect(b)
-b.connect(c)
-a.setval(10)
