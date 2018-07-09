@@ -1,13 +1,13 @@
 require_relative "../port.rb"
 
 describe Port do
-  it "should set the port's value when we call setval" do
+  it "should set the port's value when we call #setval" do
     a=Port.new(4)
     a.setval(1)
     expect(a).to eq 1
   end
 
-  it "should propagate values when we call setval" do
+  it "should propagate values when we call #setval" do
     a=Port.new(4)
     b=Port.new(4)
     c=Port.new(4)
@@ -41,5 +41,11 @@ describe Port do
   it "should not allow value to go over max allowed by width" do
     a=Port.new(4)
     expect {a.setval(16)}.to raise_error ArgumentError
+  end
+
+  it "should call registered callbacks" do
+    a=Port.new(4)
+    expect { |b|  a.add_callback(&b); a.setval(10) }.to yield_with_args(10)
+    expect { |b| a.add_callback(&b); a.setval(8) }.to yield_with_args(8)
   end
 end

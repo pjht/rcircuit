@@ -19,6 +19,7 @@ class Port
   #   @param name [String] The name of the port
   def initialize(width, name="")
     @connected=[]
+    @callbacks=[]
     @propagating=false
     @val=0
     @width=width
@@ -26,8 +27,9 @@ class Port
     @strname=name
   end
 
-  # Sets the port's value
-  # @param val [Integer] The new value for the port
+  # Sets the port's value and calls all registered callbacks
+  # @param val [Integer] The new value for the port.
+  #   It must not exceed (width^2)-1,or an ArgumentError will be raised.
   # @return [void]
   def setval(val)
     # Prevent infinite loops when the connected port calls back when propagating.
@@ -36,6 +38,9 @@ class Port
         @val=val
       else
         raise ArgumentError,"#{val} is over maximum of #{@maxval}"
+      end
+      @callbacks.each do |callback|
+        callback.call(@val)
       end
       @propagating=true
       propagate()
@@ -49,6 +54,14 @@ class Port
   def connect(port)
     @connected.push port
     port.connect_back(self)
+  end
+
+  # Adds a callback.
+  # @yield When callback called, gives the value of the port.
+  # @yieldparam value [Integer] The value of the port.
+  def add_callback(&callback)
+    #add block to the list, put at head
+    @callbacks.insert(0, callback)
   end
 
   # Returns a string representation for debugging
