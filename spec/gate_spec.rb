@@ -1,6 +1,9 @@
-require_relative "../gate.rb"
 require_relative "../port.rb"
-
+require_relative "../gate.rb"
+require_relative "../not.rb"
+require_relative "../and.rb"
+require_relative "../or.rb"
+require_relative "../xor.rb"
 describe Gate do
   let(:klass) do
     Class.new(Gate) do
@@ -30,5 +33,55 @@ describe Gate do
     a.setval(8)
     b.setval(10)
     expect(gate.out.val).to eq(18)
+  end
+
+  context "NotGate" do
+    it "should NOT the input" do
+      table=[
+        [0,1],
+        [1,0]
+      ]
+      ok=NotGate.test_table(table)
+      expect(ok).to eq true
+    end
+  end
+
+  context "AndGate" do
+    it "should AND together all inputs" do
+      table=[
+        [0,0,0],
+        [0,1,0],
+        [1,0,0],
+        [1,1,1],
+      ]
+      ok=AndGate.test_table(table)
+      expect(ok).to eq true
+    end
+  end
+
+  context "OrGate" do
+    it "should OR together all inputs" do
+      table=[
+        [0,0,0],
+        [0,1,1],
+        [1,0,1],
+        [1,1,1],
+      ]
+      ok=OrGate.test_table(table)
+      expect(ok).to eq true
+    end
+  end
+
+  context "XorGate" do
+    it "should XOR together all inputs" do
+      table=[
+        [0,0,0],
+        [0,1,1],
+        [1,0,1],
+        [1,1,0],
+      ]
+      ok=XorGate.test_table(table)
+      expect(ok).to eq true
+    end
   end
 end

@@ -41,6 +41,28 @@ class Gate
     inputs_changed(vals)
   end
 
+  # Test a truth table for a gate.
+  # @param table [Array<Array<Integer>>] The truth table,
+  #   which is an array of entries. The last value in the entry is the expected output,
+  #   the rest are the inputs to the ports.
+  def self.test_table(table)
+    ports=[]
+    (table[0].length-1).times do
+      ports.push Port.new(1)
+    end
+    gate=self.new(*ports)
+    table.each do |entry|
+      i=0
+      ports.each do |port|
+        port.setval(entry[i])
+        i+=1
+      end
+      return false if gate.out!=entry.last
+    end
+    return true
+  end
+
+  # Called when inputs change.
   # @abstract Override this to implement a gate.
   # @param vals [Array<Integer>] List of values for connected ports.
   def inputs_changed(vals); raise NotImplementedError; end
