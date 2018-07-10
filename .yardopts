@@ -1,1 +1,1 @@
-*.rb --private --exclude old/* 
+--private --exclude old/* 

@@ -1,4 +1,3 @@
-require_relative "../or.rb"
 describe OrGate do
   it "should OR together all inputs" do
     table=[

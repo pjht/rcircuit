@@ -12,11 +12,8 @@ class Port
   attr_reader :width
 
   # Returns a new instance of Port
-  # @overload set(width)
-  #   @param width [Integer] The width of the port
-  # @overload set(width, name)
-  #   @param width [Integer] The width of the port
-  #   @param name [String] The name of the port
+  # @param width [Integer] The width of the port
+  # @param name [String] The name of the port
   def initialize(width, name="")
     @connected=[]
     @callbacks=[]

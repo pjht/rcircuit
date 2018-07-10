@@ -1,4 +1,3 @@
-require_relative "../xor.rb"
 describe XorGate do
   it "should XOR together all inputs" do
     table=[

@@ -1,5 +1,3 @@
-require_relative "../port.rb"
-
 describe Port do
   it "should set the port's value when we call #setval" do
     a=Port.new(4)

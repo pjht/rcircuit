@@ -1,4 +1,3 @@
-require_relative "../not.rb"
 describe NotGate do
   it "should NOT the input" do
     table=[

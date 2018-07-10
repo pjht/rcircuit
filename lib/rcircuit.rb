@@ -1,0 +1,7 @@
+require_relative "rcircuit/port.rb"
+require_relative "rcircuit/gate.rb"
+require_relative "rcircuit/device.rb"
+require_relative "rcircuit/not.rb"
+require_relative "rcircuit/and.rb"
+require_relative "rcircuit/or.rb"
+require_relative "rcircuit/xor.rb"

@@ -1,4 +1,3 @@
-require_relative "../and.rb"
 describe AndGate do
   it "should AND together all inputs" do
     table=[

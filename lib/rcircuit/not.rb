@@ -1,6 +1,3 @@
-require_relative "gate.rb"
-require_relative "port.rb"
-
 # Represents a NOT gate
 class NotGate < Gate
 

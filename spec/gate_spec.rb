@@ -1,6 +1,3 @@
-require_relative "../port.rb"
-require_relative "../gate.rb"
-
 describe Gate do
   let(:klass) do
     Class.new(Gate) do

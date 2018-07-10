@@ -1,6 +1,3 @@
-require_relative "gate.rb"
-require_relative "port.rb"
-
 # Represents an XOR gate
 class XorGate < Gate
 
