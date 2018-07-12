@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require "pry"
+require_relative "lib/rcircuit.rb"
+a=Port.new(8)
+b=Port.new(8)
+Pry.start()

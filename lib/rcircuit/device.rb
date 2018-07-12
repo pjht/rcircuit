@@ -5,7 +5,6 @@ class Device
   # @param width [Integer] Width of the port
   # @return [void]
   def add_input(name, width=1)
-    self.class.class_eval{attr_reader name.to_sym}
     port = Port.new(width)
     instance_variable_set("@#{name}", port)
     port.add_callback { |val| on_change(val) }
@@ -38,7 +37,7 @@ class Device
     hash.each do |name, port|
       #check if there is a defined method (port) that matches
       if self.respond_to?(name)
-        method(name).call(port)
+        instance_variable_get("@#{name}").connect(port)
       else
         raise ArgumentError, "No defined input '#{name}'"
       end
