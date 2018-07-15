@@ -1,0 +1,2 @@
+Must document VCD and Adder
+Must add tests for VCD and Device
