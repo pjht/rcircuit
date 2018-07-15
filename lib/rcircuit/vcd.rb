@@ -1,9 +1,8 @@
-# creates VCD file from port states
-
-require "set"
-
+## Creates VCD files from port states
 class VCD
 
+  # @param filename [String] The filename to output to
+  # @param timescale [String] The timescale
   def initialize(filename, timescale="1ps")
     @fd = File.open(filename, 'w')
     @time=0
@@ -11,9 +10,11 @@ class VCD
     @portmap = {}
     @idmap = {}
     @id = "a"
-    write_header
+    write_metadata
   end
 
+  # Start logging
+  # @return [void]
   def start
     @fd.puts "$scope module TOP $end"
     @portmap.each do |portname,port|
@@ -30,10 +31,16 @@ class VCD
     @fd.puts "\#0"
   end
 
-  def finish
+  # Stop logging
+  # @return [void]
+  def stop
     @fd.close
   end
 
+  # Attatch a port
+  # @param port [Port] The port to attatch
+  # @param portname [String] The name of the port in the VCD file
+  # @return [void]
   def attach(port, portname)
     raise ArgumentError.new("Duplicate port name '#{portname}'") if @portmap.has_key?(portname)
     if port.width > 1
@@ -47,6 +54,8 @@ class VCD
     end
   end
 
+  # Advance x timesteps
+  # @param timesteps [Integer] The number of timesteps to advance
   def advance(timesteps)
     @time += timesteps
     @fd.puts "\##{@time.to_s}"
@@ -54,14 +63,17 @@ class VCD
 
   private
 
-  def write_header
+  # Write the VCD file metadata
+  def write_metadata
     @fd.puts "$version\nRCircuit VCD Generator Version 0.0\n$end"
     @fd.puts "$date\n#{Time.now.asctime}\n$end"
     @fd.puts "$timescale #{@timescale} $end"
   end
 
+  # Writes VCD line for state of port, using id
+  # @param portname [String] the name of port to write out state
   def write_port_state(portname)
-    #writes VCD line for state of port, using id
+
     port = @portmap[portname]
     if port.width == 1
       state = port.val.to_s

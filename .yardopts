@@ -1,1 +1,1 @@
---private --exclude old/* 
+--private --protected --exclude old/* 

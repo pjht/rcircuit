@@ -1,4 +1,6 @@
+## Adder device
 class Adder < Device
+  # @param (see Device#initialize)
   def initialize(width, init_args)
     add_input("a", width)
     add_input("b", width)
@@ -7,7 +9,9 @@ class Adder < Device
     @mask=(2**width)-1
   end
 
-  def on_change(data_val)
+  private
+  # Called when there is a change to inputs
+  def on_change()
     out.setval((a.val+b.val)&@mask)
   end
 end

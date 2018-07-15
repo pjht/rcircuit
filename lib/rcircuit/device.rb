@@ -1,4 +1,4 @@
-# Class for devices such as adders and registers
+## Class for devices such as adders and registers
 class Device
   # Add an input port
   # @param name [String] Name of the port
@@ -7,7 +7,7 @@ class Device
   def add_input(name, width=1)
     port = Port.new(width)
     instance_variable_set("@#{name}", port)
-    port.add_callback { |val| on_change(val) }
+    port.add_callback { |val| on_change() }
   end
 
   # Add an output port

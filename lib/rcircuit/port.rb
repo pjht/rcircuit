@@ -106,8 +106,9 @@ class Port
     return NotGate.new(self).out
   end
 
+  protected
+  
   # Used by connect when setting up bidirectional connection.
-  # @api private
   # @param (see #connect)
   # @return [void]
   def connect_back(port)
