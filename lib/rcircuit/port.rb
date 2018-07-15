@@ -79,6 +79,33 @@ class Port
     end
   end
 
+  # Returns the output port of an AND gate with this port and another as inputs
+  # @param other [Port] The port to AND with
+  # @return [Port] The output port of the gate
+  def &(other)
+    return AndGate.new(self,other).out
+  end
+
+  # Returns the output port of an OR gate with this port and another as inputs
+  # @param other [Port] The port to OR with
+  # @return [Port] The output port of the gate
+  def |(other)
+    return OrGate.new(self,other).out
+  end
+
+  # Returns the output port of an XOR gate with this port and another as inputs
+  # @param other [Port] The port to XOR with
+  # @return [Port] The output port of the gate
+  def ^(other)
+    return XorGate.new(self, other).out
+  end
+
+  # Returns the output port of a NOT gate with this port as the input
+  # @return [Port] The output port of the gate
+  def !
+    return NotGate.new(self).out
+  end
+
   # Used by connect when setting up bidirectional connection.
   # @api private
   # @param (see #connect)
