@@ -1,2 +1,2 @@
-Must add tests for VCD and Device
-Parts of Port must get tests
+Must add tests for Device
+Must add tests for parts of Port

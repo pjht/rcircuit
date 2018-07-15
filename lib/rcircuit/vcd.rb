@@ -1,6 +1,9 @@
 ## Creates VCD files from port states
 class VCD
 
+  # @!attribute [w] fd
+  #   @api private
+  attr_writer :fd
   # @param filename [String] The filename to output to
   # @param timescale [String] The timescale
   def initialize(filename, timescale="1ps")
@@ -28,7 +31,12 @@ class VCD
       write_port_state(portname)
     end
     @fd.puts "$end"
-    @fd.puts "\#0"
+    @fd.puts "#0"
+    @portmap.each do |name,port|
+      port.add_callback do |value|
+        write_port_state(name)
+      end
+    end
   end
 
   # Stop logging
@@ -49,16 +57,13 @@ class VCD
     @idmap[portname] = @id
     @id=@id.next()
     @portmap[portname] = port
-    port.add_callback do |value|
-      write_port_state(portname)
-    end
   end
 
   # Advance x timesteps
   # @param timesteps [Integer] The number of timesteps to advance
   def advance(timesteps)
     @time += timesteps
-    @fd.puts "\##{@time.to_s}"
+    @fd.puts "##{@time.to_s}"
   end
 
   private
