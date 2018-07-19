@@ -105,6 +105,17 @@ class Port
   def !
     return NotGate.new(self).out
   end
+  
+  def [](*args)
+    if args.length == 1
+      #single bit or range
+      bits = args[0]
+    else
+      #an array of bits, passed as multiple arguments
+      bits = args
+    end
+    return Splitter.new(self, bits).out
+  end
 
   protected
   
