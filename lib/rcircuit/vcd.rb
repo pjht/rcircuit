@@ -2,7 +2,8 @@
 class VCD
 
   # @!attribute [w] fd
-  #   @api private
+  # @api private
+  # Used for testing to set the file to an RSpec double.
   attr_writer :fd
   # @param filename [String] The filename to output to
   # @param timescale [String] The timescale
