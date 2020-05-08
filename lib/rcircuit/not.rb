@@ -1,13 +1,6 @@
 # Represents a NOT gate
 class NotGate < Gate
 
-  # (see Gate#initialize)
-  def initialize(*args)
-    @outmask=0
-    super
-    @outmask=(2**@width)-1
-  end
-
   # Add a port to the gate. As this is a NOT gate, there may only be one port.
   # @param (see Gate#add_input)
   # @return [void]
@@ -22,6 +15,6 @@ class NotGate < Gate
   #  Calculates NOT of input and sets output port to that value.
   # @param vals [Array<Integer>] List of values for connected ports.
   def inputs_changed(vals)
-    out.setval((~vals[0]) & @outmask)
+    out.setval((~vals[0]) & ((2**@width)-1))
   end
 end

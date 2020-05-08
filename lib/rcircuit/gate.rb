@@ -43,6 +43,7 @@ class Gate
   # @param table [Array<Array<Integer>>] The truth table,
   #   which is an array of entries. The last value in the entry is the expected output,
   #   the rest are the inputs to the ports.
+  # @return [Boolean] Whether the truth table matches the gate's behavior
   def self.test_table(table)
     ports=[]
     (table[0].length-1).times do
