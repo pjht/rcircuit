@@ -10,6 +10,21 @@ describe Gate do
       end
     end
   end
+  
+  it "makes sure that all ports have the same width on creation" do
+    a=Port.new(8)
+    b=Port.new(7)
+    expect{klass.new(a,b)}.to raise_error ArgumentError,"Incorrect width 7, expected 8"
+  end
+  
+  it "makes sure that all ports have the same width on adding a port" do
+    a=Port.new(8)
+    b=Port.new(8)
+    gate=klass.new(a,b)
+    port=Port.new(7)
+    expect{gate.add_input(port)}.to raise_error ArgumentError,"Incorrect width 7, expected 8"
+  end
+  
   it "calls #inputs_changed when input values change or an input is added" do
     a=Port.new(8)
     b=Port.new(8)
